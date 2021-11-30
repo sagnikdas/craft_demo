@@ -3,6 +3,7 @@ package com.sagnikdas.intuit.demo.controller;
 
 import com.sagnikdas.intuit.demo.entity.Car;
 import com.sagnikdas.intuit.demo.entity.enumerations.CarVectorEnum;
+import com.sagnikdas.intuit.demo.error.VinNotFoundException;
 import com.sagnikdas.intuit.demo.response.CarsResponse;
 import com.sagnikdas.intuit.demo.response.CustomComparisonResponse;
 import com.sagnikdas.intuit.demo.service.CarService;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 public class CarController {
@@ -29,7 +29,7 @@ public class CarController {
     }
 
     @GetMapping("/cars/{vinid}")
-    public Car getCarByVin(@PathVariable("vinid") String vin){
+    public Car getCarByVin(@PathVariable("vinid") String vin) throws VinNotFoundException {
         return carService.getCarByVin(vin);
     }
 
@@ -63,13 +63,18 @@ public class CarController {
     }
 
     @GetMapping("/cars/compare")
-    public CustomComparisonResponse getComparison(@RequestParam List<String> vinIds, @RequestParam boolean doShowDifference){
+    public CustomComparisonResponse getComparison(@RequestParam List<String> vinIds,
+                                                  @RequestParam boolean doShowDifference) throws VinNotFoundException{
 
         Map<CarVectorEnum, ArrayList<String>> featureMetaDataMap = new HashMap<>();
 
         Map<String, ArrayList<String>> diffFeatureMetaDataMap = new HashMap<>();
 
-        List<Car> cars = vinIds.stream().map(this::getCarByVin).collect(Collectors.toList());
+        List<Car> cars = new ArrayList<>();
+        for (String vinId : vinIds) {
+            Car carByVin = getCarByVin(vinId);
+            cars.add(carByVin);
+        }
 
 
         for(Car car: cars){

@@ -1,12 +1,14 @@
 package com.sagnikdas.intuit.demo.service;
 
 import com.sagnikdas.intuit.demo.entity.Car;
+import com.sagnikdas.intuit.demo.error.VinNotFoundException;
 import com.sagnikdas.intuit.demo.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarService {
@@ -22,8 +24,12 @@ public class CarService {
         return carRepository.findAll();
     }
 
-    public Car getCarByVin(String vin){
-        return carRepository.getCarByVin(vin);
+    public Car getCarByVin(String vin) throws VinNotFoundException{
+        Optional<Car> car = carRepository.getCarByVin(vin);
+        if(!car.isPresent()) {
+            throw new VinNotFoundException("Vin Not Found");
+        }
+        return car.get();
     }
 
     public List<Car> getCarByModelName(String modelName){
