@@ -6,7 +6,6 @@ import com.sagnikdas.intuit.demo.entity.enumerations.SeatingCapacity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;

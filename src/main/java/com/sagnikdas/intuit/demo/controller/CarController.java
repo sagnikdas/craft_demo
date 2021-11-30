@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//@RequestMapping(produces = MediaType.APPLICATION_JSON) //TODO
 @RestController
 public class CarController {
 
