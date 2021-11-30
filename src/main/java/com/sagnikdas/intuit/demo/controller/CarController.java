@@ -12,28 +12,31 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+import static com.sagnikdas.intuit.demo.utils.CarConstants.*;
+
 @RestController
 public class CarController {
 
     @Autowired
     CarService carService;
 
-    @PostMapping("/car")
+    @PostMapping(CAR)
     public void addCar(@RequestBody Car car){
         carService.addCar(car);
     }
 
-    @GetMapping("/cars")
+    @GetMapping(CARS)
     public List<Car> getCars() {
         return carService.getAllCars();
+
     }
 
-    @GetMapping("/cars/{vinid}")
+    @GetMapping(CARS_VINID)
     public Car getCarByVin(@PathVariable("vinid") String vin) throws VinNotFoundException {
         return carService.getCarByVin(vin);
     }
 
-    @GetMapping("/cars/{vinid}/similarCars") //Make constants TODO
+    @GetMapping(CARS_VINID_SIMILAR_CARS)
     public CarsResponse getSimilarCars(@PathVariable("vinid") String vin, @RequestParam("search_type") String searchType) throws Exception {
 
         CarVectorEnum vector = CarVectorEnum.valueOf(searchType);
@@ -62,7 +65,7 @@ public class CarController {
 
     }
 
-    @GetMapping("/cars/compare")
+    @GetMapping(CARS_COMPARE)
     public CustomComparisonResponse getComparison(@RequestParam List<String> vinIds,
                                                   @RequestParam boolean doShowDifference) throws VinNotFoundException{
 
