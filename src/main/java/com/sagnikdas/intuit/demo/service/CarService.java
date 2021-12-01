@@ -18,18 +18,17 @@ public class CarService {
     @Autowired
     CarRepository carRepository;
 
-    public CarService(CarRepository carRepository) {
-        this.carRepository = carRepository;
-    }
-
+    //save Cars into the database
     public void addCar(Car car) {
         carRepository.save(car);
     }
 
+    //fetch all cars from database
     public List<Car> getAllCars() {
         return carRepository.findAll();
     }
 
+    //fetch a car by its vin id
     public Car getCarByVin(String vin) throws VinNotFoundException {
         Optional<Car> car = carRepository.getCarByVin(vin);
         if (!car.isPresent()) {
@@ -38,37 +37,83 @@ public class CarService {
         return car.get();
     }
 
-    public List<Car> getCarByModelName(String modelName) {
-        return carRepository.getCarByModelName(modelName);
-    }
-
     @SneakyThrows
     public CarsResponse getSimilarCarsBySearchType(String vin, String searchType) {
         Car selectedCar = getCarByVin(vin);
         CarVectorEnum type = CarVectorEnum.fromString(searchType);
 
+        List<Car> cList = new ArrayList<>();
         switch (type) {
             case MODEL_NAME:
-                return new CarsResponse(selectedCar, getCarByModelName(selectedCar.getModelName()));
+                cList = getCarByModelName(selectedCar.getModelName());
+                break;
             case MFG_NAME:
-                return new CarsResponse(selectedCar, getCarByManufacturerName(selectedCar.getManufacturerName()));
+                cList = getCarByManufacturerName(selectedCar.getManufacturerName());
+                break;
             case COUNTRY_ORIGIN:
-                return new CarsResponse(selectedCar, getCarByCountryOfOrigin(selectedCar.getCountryOfOrigin()));
+                cList = getCarByCountryOfOrigin(selectedCar.getCountryOfOrigin());
             case ENGINE_TYPE:
-                return new CarsResponse(selectedCar, getCarByEngineType(selectedCar.getEngineType().name()));
+                cList = getCarByEngineType(selectedCar.getEngineType().name());
+                break;
             case SEATING_CAPACITY:
-                return new CarsResponse(selectedCar, getCarBySeatingCapacity(selectedCar.getSeatingCapacity().name()));
+                cList = getCarBySeatingCapacity(selectedCar.getSeatingCapacity().name());
+                break;
             case COLOUR:
-                return new CarsResponse(selectedCar, getCarByCarColour(selectedCar.getCarColour().name()));
+                cList = getCarByCarColour(selectedCar.getCarColour().name());
+                break;
             case PRICE:
-                return new CarsResponse(selectedCar, getCarByExShowRoomPrice(Double.parseDouble(selectedCar.getExShowRoomPrice().toString())));
+                cList = getCarByExShowRoomPrice(Double.parseDouble(selectedCar.getExShowRoomPrice().toString()));
+                break;
             case RELEASE_DATE:
-                return new CarsResponse(selectedCar, getCarByDateOfRelease(selectedCar.getDateOfRelease()));
+                cList = getCarByDateOfRelease(selectedCar.getDateOfRelease());
+
         }
 
-        return CarsResponse.builder().build();
+
+        return CarsResponse.builder()
+                .car(selectedCar)
+                .similarCars(cList)
+                .build();
     }
 
+    //fetch cars by search types - START
+    public List<Car> getCarByModelName(String modelName) {
+        return carRepository.getCarByModelName(modelName);
+    }
+
+    public List<Car> getCarByManufacturerName(String manufacturerName) {
+        return carRepository.getCarByManufacturerName(manufacturerName);
+    }
+
+    public List<Car> getCarByCountryOfOrigin(String countryOfOrigin) {
+        return carRepository.getCarByCountryOfOrigin(countryOfOrigin);
+    }
+
+
+    public List<Car> getCarByEngineType(String engineType) {
+        return carRepository.getCarByEngineType(engineType);
+    }
+
+    public List<Car> getCarBySeatingCapacity(String seatingCapacity) {
+        return carRepository.getCarBySeatingCapacity(seatingCapacity);
+    }
+
+    public List<Car> getCarByCarColour(String carColour) {
+        return carRepository.getCarByCarColour(carColour);
+    }
+
+
+    public List<Car> getCarByExShowRoomPrice(Double exShowRoomPrice) {
+        return carRepository.getCarByExShowRoomPrice(exShowRoomPrice);
+    }
+
+    public List<Car> getCarByDateOfRelease(Date dateOfRelease) {
+        return carRepository.getCarByDateOfRelease(dateOfRelease);
+    }
+    //fetch cars by search types - END
+
+
+    //Compare multiple cars to obtain a difference map
     public CustomComparisonResponse getCustomComparisonResponse(List<String> vinIds,
                                                                 boolean doShowDifference,
                                                                 Map<CarVectorEnum, ArrayList<String>> featureMetaDataMap, Map<String, ArrayList<String>> diffFeatureMetaDataMap) throws VinNotFoundException {
@@ -124,6 +169,7 @@ public class CarService {
 
         }
 
+        //toggle button set to show difference
         if (doShowDifference) {
             for (Map.Entry<CarVectorEnum, ArrayList<String>> entry : featureMetaDataMap.entrySet()) {
                 //Populating differing features in a map
@@ -136,40 +182,11 @@ public class CarService {
         return new CustomComparisonResponse(cars, diffFeatureMetaDataMap);
     }
 
+    //Checking if all the elements in the list are similar ones
     private boolean containsAllSimilarElements(ArrayList<String> list) {
         return list.stream()
                 .distinct()
                 .count() <= 1;
-    }
-
-    public List<Car> getCarByManufacturerName(String manufacturerName) {
-        return carRepository.getCarByManufacturerName(manufacturerName);
-    }
-
-    public List<Car> getCarByCountryOfOrigin(String countryOfOrigin) {
-        return carRepository.getCarByCountryOfOrigin(countryOfOrigin);
-    }
-
-
-    public List<Car> getCarByEngineType(String engineType) {
-        return carRepository.getCarByEngineType(engineType);
-    }
-
-    public List<Car> getCarBySeatingCapacity(String seatingCapacity) {
-        return carRepository.getCarBySeatingCapacity(seatingCapacity);
-    }
-
-    public List<Car> getCarByCarColour(String carColour) {
-        return carRepository.getCarByCarColour(carColour);
-    }
-
-
-    public List<Car> getCarByExShowRoomPrice(Double exShowRoomPrice) {
-        return carRepository.getCarByExShowRoomPrice(exShowRoomPrice);
-    }
-
-    public List<Car> getCarByDateOfRelease(Date dateOfRelease) {
-        return carRepository.getCarByDateOfRelease(dateOfRelease);
     }
 
 }
