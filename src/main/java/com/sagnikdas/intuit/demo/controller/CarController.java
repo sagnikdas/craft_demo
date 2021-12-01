@@ -3,7 +3,6 @@ package com.sagnikdas.intuit.demo.controller;
 
 import com.sagnikdas.intuit.demo.entity.Car;
 import com.sagnikdas.intuit.demo.entity.enumerations.CarVectorEnum;
-import com.sagnikdas.intuit.demo.error.InvalidSearchTypeException;
 import com.sagnikdas.intuit.demo.error.VinNotFoundException;
 import com.sagnikdas.intuit.demo.response.CarsResponse;
 import com.sagnikdas.intuit.demo.response.CustomComparisonResponse;

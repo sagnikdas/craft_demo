@@ -22,12 +22,12 @@ public enum CarVectorEnum {
                 .collect(Collectors.toMap(CarVectorEnum::toString, Function.identity()));
 
         public static CarVectorEnum fromString(final String name) throws InvalidSearchTypeException{
-            CarVectorEnum myEnum = NAME_MAP.get(name);
-            if (null == myEnum) {
+            CarVectorEnum searchType = NAME_MAP.get(name);
+            if (null == searchType) {
                 throw new InvalidSearchTypeException(
                         String.format("Invalid search type '%s'", name));
             }
-            return myEnum;
+            return searchType;
         }
 
 }
