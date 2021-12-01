@@ -39,31 +39,10 @@ public class CarController {
     @GetMapping(CARS_VINID_SIMILAR_CARS)
     public CarsResponse getSimilarCars(@PathVariable("vinid") String vin,
                                        @RequestParam("search_type") String searchType) throws VinNotFoundException{
-
-        CarVectorEnum vector = CarVectorEnum.valueOf(searchType);
-        Car selectedCar = getCarByVin(vin);
-
-        switch (vector) {
-            case MODEL_NAME:
-                return new CarsResponse(selectedCar,carService.getCarByModelName(selectedCar.getModelName()));
-            case MFG_NAME:
-                return new CarsResponse(selectedCar,carService.getCarByManufacturerName(selectedCar.getManufacturerName()));
-            case COUNTRY_ORIGIN:
-                return new CarsResponse(selectedCar,carService.getCarByCountryOfOrigin(selectedCar.getCountryOfOrigin()));
-            case ENGINE_TYPE:
-                return new CarsResponse(selectedCar,carService.getCarByEngineType(selectedCar.getEngineType().name()));
-            case SEATING_CAPACITY:
-                return new CarsResponse(selectedCar,carService.getCarBySeatingCapacity(selectedCar.getSeatingCapacity().name()));
-            case COLOUR:
-                return new CarsResponse(selectedCar,carService.getCarByCarColour(selectedCar.getCarColour().name()));
-            case PRICE:
-                return new CarsResponse(selectedCar,carService.getCarByExShowRoomPrice(Double.parseDouble(selectedCar.getExShowRoomPrice().toString())));
-            case RELEASE_DATE:
-                return new CarsResponse(selectedCar,carService.getCarByDateOfRelease(selectedCar.getDateOfRelease()));
-        }
-
-        return CarsResponse.builder().build();
+        return carService.getSimilarCarsBySearchType(vin, searchType);
     }
+
+
 
     @GetMapping(CARS_COMPARE)
     public CustomComparisonResponse getComparison(@RequestParam List<String> vinIds,
