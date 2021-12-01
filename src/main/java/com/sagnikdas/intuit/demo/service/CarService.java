@@ -52,6 +52,7 @@ public class CarService {
                 break;
             case COUNTRY_ORIGIN:
                 cList = getCarByCountryOfOrigin(selectedCar.getCountryOfOrigin());
+                break;
             case ENGINE_TYPE:
                 cList = getCarByEngineType(selectedCar.getEngineType().name());
                 break;
