@@ -16,8 +16,14 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(VinNotFoundException.class)
     public ResponseEntity<ErrorMessage> vinNotFoundException(VinNotFoundException vinNotFoundException, WebRequest webRequest) {
-
         ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, vinNotFoundException.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+    }
+
+    @ExceptionHandler(InvalidSearchTypeException.class)
+    public ResponseEntity<ErrorMessage> invalidSearchTypeException(InvalidSearchTypeException invalidSearchTypeException,
+                                                                   WebRequest webRequest) {
+        ErrorMessage message = new ErrorMessage(HttpStatus.BAD_REQUEST, invalidSearchTypeException.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
 
     }

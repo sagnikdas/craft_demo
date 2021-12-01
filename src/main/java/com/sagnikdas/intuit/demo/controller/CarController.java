@@ -3,6 +3,7 @@ package com.sagnikdas.intuit.demo.controller;
 
 import com.sagnikdas.intuit.demo.entity.Car;
 import com.sagnikdas.intuit.demo.entity.enumerations.CarVectorEnum;
+import com.sagnikdas.intuit.demo.error.InvalidSearchTypeException;
 import com.sagnikdas.intuit.demo.error.VinNotFoundException;
 import com.sagnikdas.intuit.demo.response.CarsResponse;
 import com.sagnikdas.intuit.demo.response.CustomComparisonResponse;
@@ -37,10 +38,11 @@ public class CarController {
     }
 
     @GetMapping(CARS_VINID_SIMILAR_CARS)
-    public CarsResponse getSimilarCars(@PathVariable("vinid") String vin, @RequestParam("search_type") String searchType) throws Exception {
+    public CarsResponse getSimilarCars(@PathVariable("vinid") String vin,
+                                       @RequestParam("search_type") String searchType) throws VinNotFoundException{
 
         CarVectorEnum vector = CarVectorEnum.valueOf(searchType);
-        Car selectedCar = getCarByVin(vin); //TODO exception handling , in case the selected car is null
+        Car selectedCar = getCarByVin(vin);
 
         switch (vector) {
             case MODEL_NAME:
@@ -59,10 +61,9 @@ public class CarController {
                 return new CarsResponse(selectedCar,carService.getCarByExShowRoomPrice(Double.parseDouble(selectedCar.getExShowRoomPrice().toString())));
             case RELEASE_DATE:
                 return new CarsResponse(selectedCar,carService.getCarByDateOfRelease(selectedCar.getDateOfRelease()));
-            default:
-                throw new Exception("Invalid search type found");
         }
 
+        return CarsResponse.builder().build();
     }
 
     @GetMapping(CARS_COMPARE)
