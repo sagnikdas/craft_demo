@@ -1,6 +1,6 @@
 package com.sagnikdas.intuit.demo.error;
 
-public class EmptyVinIdsException extends Exception{
+public class EmptyVinIdsException extends Exception {
     public EmptyVinIdsException() {
     }
 
