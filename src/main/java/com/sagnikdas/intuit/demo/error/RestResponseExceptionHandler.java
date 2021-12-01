@@ -20,12 +20,19 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
 
-    @ExceptionHandler(InvalidSearchTypeException.class)
-    public ResponseEntity<ErrorMessage> invalidSearchTypeException(InvalidSearchTypeException invalidSearchTypeException,
+    @ExceptionHandler({InvalidSearchTypeException.class, EmptyVinIdsException.class})
+    public ResponseEntity<ErrorMessage> invalidSearchTypeException(Exception exception,
                                                                    WebRequest webRequest) {
-        ErrorMessage message = new ErrorMessage(HttpStatus.BAD_REQUEST, invalidSearchTypeException.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
 
+        ErrorMessage message = new ErrorMessage();
+        if(exception instanceof InvalidSearchTypeException){
+            message = new ErrorMessage(HttpStatus.BAD_REQUEST,exception.getMessage());
+        }
+
+        if(exception instanceof EmptyVinIdsException){
+            message = new ErrorMessage(HttpStatus.BAD_REQUEST,exception.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
 
 }
