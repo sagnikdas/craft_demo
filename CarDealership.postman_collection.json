@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "061c1a93-10a5-45e6-822e-cc6d30e27b65",
+		"name": "Car Dealership",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add a Car",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n\n        \"vin\": \"079972811\",\n        \"modelName\": \"Maruti\",\n        \"manufacturerName\": \"SSWE\",\n        \"countryOfOrigin\": \"USA\",\n        \"engineType\": \"PETROL_ENGINE\",\n        \"seatingCapacity\": \"EIGHT_SEATER\",\n        \"carColour\": \"RED\",\n        \"exShowRoomPrice\": 860000.0\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/car/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"car",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Cars",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "10 Similar cars",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/cars/079972816/similarCars?search_type=SEATING_CAPACITY",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"cars",
+						"079972816",
+						"similarCars"
+					],
+					"query": [
+						{
+							"key": "search_type",
+							"value": "SEATING_CAPACITY"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Car by vinId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Get Comparison",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/cars/compare?vinIds=079972815,079972816,079972817&doShowDifference=false",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"cars",
+						"compare"
+					],
+					"query": [
+						{
+							"key": "vinIds",
+							"value": "079972815,079972816,079972817"
+						},
+						{
+							"key": "doShowDifference",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
