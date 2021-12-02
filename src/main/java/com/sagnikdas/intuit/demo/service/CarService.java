@@ -1,7 +1,10 @@
 package com.sagnikdas.intuit.demo.service;
 
 import com.sagnikdas.intuit.demo.entity.Car;
+import com.sagnikdas.intuit.demo.entity.enumerations.CarColour;
 import com.sagnikdas.intuit.demo.entity.enumerations.CarVectorEnum;
+import com.sagnikdas.intuit.demo.entity.enumerations.EngineType;
+import com.sagnikdas.intuit.demo.entity.enumerations.SeatingCapacity;
 import com.sagnikdas.intuit.demo.error.VinNotFoundException;
 import com.sagnikdas.intuit.demo.repository.CarRepository;
 import com.sagnikdas.intuit.demo.response.CarsResponse;
@@ -17,6 +20,8 @@ public class CarService {
 
     @Autowired
     CarRepository carRepository;
+
+    List<Car> cList = new ArrayList<>();
 
     //save Cars into the database
     public void addCar(Car car) {
@@ -41,40 +46,58 @@ public class CarService {
     public CarsResponse getSimilarCarsBySearchType(String vin, String searchType) {
         Car selectedCar = getCarByVin(vin);
         CarVectorEnum type = CarVectorEnum.fromString(searchType);
+        Map<CarVectorEnum, SearchTypeFunction> searchTypeMap = new HashMap<>();
 
-        List<Car> cList = new ArrayList<>();
-        switch (type) {
-            case MODEL_NAME:
-                cList = getCarByModelName(selectedCar.getModelName());
-                break;
-            case MFG_NAME:
-                cList = getCarByManufacturerName(selectedCar.getManufacturerName());
-                break;
-            case COUNTRY_ORIGIN:
-                cList = getCarByCountryOfOrigin(selectedCar.getCountryOfOrigin());
-                break;
-            case ENGINE_TYPE:
-                cList = getCarByEngineType(selectedCar.getEngineType().name());
-                break;
-            case SEATING_CAPACITY:
-                cList = getCarBySeatingCapacity(selectedCar.getSeatingCapacity().name());
-                break;
-            case COLOUR:
-                cList = getCarByCarColour(selectedCar.getCarColour().name());
-                break;
-            case PRICE:
-                cList = getCarByExShowRoomPrice(Double.parseDouble(selectedCar.getExShowRoomPrice().toString()));
-                break;
-            case RELEASE_DATE:
-                cList = getCarByDateOfRelease(selectedCar.getDateOfRelease());
-
-        }
-
+        initMyFunctionMap(selectedCar, searchTypeMap);
+        searchTypeMap.get(type).compute();
 
         return CarsResponse.builder()
                 .car(selectedCar)
                 .similarCars(cList)
                 .build();
+    }
+
+    private void initMyFunctionMap(Car selectedCar, Map<CarVectorEnum, SearchTypeFunction> myFunctionsMap) {
+        myFunctionsMap.put(CarVectorEnum.MODEL_NAME, ()->setCarListByModelName(selectedCar.getModelName()));
+        myFunctionsMap.put(CarVectorEnum.MFG_NAME, ()->setCarListByManufacturerName(selectedCar.getManufacturerName()));
+        myFunctionsMap.put(CarVectorEnum.COUNTRY_ORIGIN, ()->setCarListByCountryOfOrigin(selectedCar.getCountryOfOrigin()));
+        myFunctionsMap.put(CarVectorEnum.ENGINE_TYPE, ()->setCarListByEngineType(selectedCar.getEngineType()));
+        myFunctionsMap.put(CarVectorEnum.SEATING_CAPACITY, ()->setCarListBySeatingCapacity(selectedCar.getSeatingCapacity()));
+        myFunctionsMap.put(CarVectorEnum.COLOUR, ()->setCarListByColour(selectedCar.getCarColour()));
+        myFunctionsMap.put(CarVectorEnum.PRICE, ()->setCarListByPrice(selectedCar.getExShowRoomPrice()));
+        myFunctionsMap.put(CarVectorEnum.RELEASE_DATE, ()->setCarListByDateOfRelease(selectedCar.getDateOfRelease()));
+    }
+
+    private void setCarListByDateOfRelease(Date dateOfRelease) {
+        cList = getCarByDateOfRelease(dateOfRelease);
+    }
+
+    private void setCarListByPrice(Double exShowRoomPrice) {
+        cList = getCarByExShowRoomPrice(exShowRoomPrice);
+    }
+
+    private void setCarListByColour(CarColour carColour) {
+        cList = getCarByCarColour(carColour.name());
+    }
+
+    private void setCarListBySeatingCapacity(SeatingCapacity seatingCapacity) {
+        cList = getCarBySeatingCapacity(seatingCapacity.name());
+    }
+
+    private void setCarListByEngineType(EngineType engineType) {
+        cList = getCarByEngineType(engineType.name());
+    }
+
+    private void setCarListByCountryOfOrigin(String countryOfOrigin) {
+        cList = getCarByCountryOfOrigin(countryOfOrigin);
+    }
+
+    private void setCarListByManufacturerName(String mfgName) {
+        cList = getCarByManufacturerName(mfgName);
+    }
+
+    private void setCarListByModelName(String modelName) {
+        cList = getCarByModelName(modelName);
     }
 
     //fetch cars by search types - START
