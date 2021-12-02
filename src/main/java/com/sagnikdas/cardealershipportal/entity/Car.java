@@ -1,8 +1,8 @@
 package com.sagnikdas.cardealershipportal.entity;
 
 import com.sagnikdas.cardealershipportal.entity.enumerations.CarColour;
-import com.sagnikdas.cardealershipportal.entity.enumerations.SeatingCapacity;
 import com.sagnikdas.cardealershipportal.entity.enumerations.EngineType;
+import com.sagnikdas.cardealershipportal.entity.enumerations.SeatingCapacity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
