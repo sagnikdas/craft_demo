@@ -1,4 +1,4 @@
-package com.sagnikdas.intuit.demo.entity;
+package com.sagnikdas.intuit.demo.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
