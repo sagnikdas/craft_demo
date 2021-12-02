@@ -1,4 +1,4 @@
-package com.sagnikdas.intuit.demo.error;
+package com.sagnikdas.cardealershipportal.error;
 
 public class EmptyVinIdsException extends Exception {
     public EmptyVinIdsException() {

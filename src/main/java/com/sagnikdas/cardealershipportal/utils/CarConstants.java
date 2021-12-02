@@ -1,4 +1,4 @@
-package com.sagnikdas.intuit.demo.utils;
+package com.sagnikdas.cardealershipportal.utils;
 
 public class CarConstants {
 

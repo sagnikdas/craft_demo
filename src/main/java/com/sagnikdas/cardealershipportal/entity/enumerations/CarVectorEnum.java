@@ -1,6 +1,6 @@
-package com.sagnikdas.intuit.demo.entity.enumerations;
+package com.sagnikdas.cardealershipportal.entity.enumerations;
 
-import com.sagnikdas.intuit.demo.error.InvalidSearchTypeException;
+import com.sagnikdas.cardealershipportal.error.InvalidSearchTypeException;
 
 import java.util.Map;
 import java.util.function.Function;

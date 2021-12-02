@@ -1,4 +1,4 @@
-package com.sagnikdas.intuit.demo.entity.enumerations;
+package com.sagnikdas.cardealershipportal.entity.enumerations;
 
 public enum SeatingCapacity {
 

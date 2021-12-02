@@ -1,4 +1,4 @@
-package com.sagnikdas.intuit.demo.error;
+package com.sagnikdas.cardealershipportal.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

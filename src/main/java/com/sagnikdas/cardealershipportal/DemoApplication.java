@@ -1,4 +1,4 @@
-package com.sagnikdas.intuit.demo;
+package com.sagnikdas.cardealershipportal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.sagnikdas.intuit.demo;
+package com.sagnikdas.cardealershipportal;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

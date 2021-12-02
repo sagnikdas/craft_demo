@@ -1,4 +1,4 @@
-package com.sagnikdas.intuit.demo.service;
+package com.sagnikdas.cardealershipportal.service;
 
 public interface SearchTypeFunction {
     void compute();

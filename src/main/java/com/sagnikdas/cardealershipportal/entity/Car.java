@@ -1,8 +1,8 @@
-package com.sagnikdas.intuit.demo.entity;
+package com.sagnikdas.cardealershipportal.entity;
 
-import com.sagnikdas.intuit.demo.entity.enumerations.CarColour;
-import com.sagnikdas.intuit.demo.entity.enumerations.EngineType;
-import com.sagnikdas.intuit.demo.entity.enumerations.SeatingCapacity;
+import com.sagnikdas.cardealershipportal.entity.enumerations.CarColour;
+import com.sagnikdas.cardealershipportal.entity.enumerations.SeatingCapacity;
+import com.sagnikdas.cardealershipportal.entity.enumerations.EngineType;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 

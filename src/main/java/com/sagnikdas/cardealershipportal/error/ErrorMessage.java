@@ -1,4 +1,4 @@
-package com.sagnikdas.intuit.demo.error;
+package com.sagnikdas.cardealershipportal.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

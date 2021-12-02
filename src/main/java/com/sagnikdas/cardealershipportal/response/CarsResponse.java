@@ -1,7 +1,7 @@
-package com.sagnikdas.intuit.demo.response;
+package com.sagnikdas.cardealershipportal.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sagnikdas.intuit.demo.entity.Car;
+import com.sagnikdas.cardealershipportal.entity.Car;
 import lombok.*;
 
 import java.util.List;

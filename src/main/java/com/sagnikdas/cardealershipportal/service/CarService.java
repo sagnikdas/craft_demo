@@ -1,14 +1,14 @@
-package com.sagnikdas.intuit.demo.service;
+package com.sagnikdas.cardealershipportal.service;
 
-import com.sagnikdas.intuit.demo.entity.Car;
-import com.sagnikdas.intuit.demo.entity.enumerations.CarColour;
-import com.sagnikdas.intuit.demo.entity.enumerations.CarVectorEnum;
-import com.sagnikdas.intuit.demo.entity.enumerations.EngineType;
-import com.sagnikdas.intuit.demo.entity.enumerations.SeatingCapacity;
-import com.sagnikdas.intuit.demo.error.VinNotFoundException;
-import com.sagnikdas.intuit.demo.repository.CarRepository;
-import com.sagnikdas.intuit.demo.response.CarsResponse;
-import com.sagnikdas.intuit.demo.response.CustomComparisonResponse;
+import com.sagnikdas.cardealershipportal.entity.Car;
+import com.sagnikdas.cardealershipportal.entity.enumerations.CarColour;
+import com.sagnikdas.cardealershipportal.entity.enumerations.CarVectorEnum;
+import com.sagnikdas.cardealershipportal.entity.enumerations.SeatingCapacity;
+import com.sagnikdas.cardealershipportal.error.VinNotFoundException;
+import com.sagnikdas.cardealershipportal.repository.CarRepository;
+import com.sagnikdas.cardealershipportal.response.CarsResponse;
+import com.sagnikdas.cardealershipportal.response.CustomComparisonResponse;
+import com.sagnikdas.cardealershipportal.entity.enumerations.EngineType;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

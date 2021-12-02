@@ -1,6 +1,6 @@
-package com.sagnikdas.intuit.demo.repository;
+package com.sagnikdas.cardealershipportal.repository;
 
-import com.sagnikdas.intuit.demo.entity.Car;
+import com.sagnikdas.cardealershipportal.entity.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
